@@ -1,0 +1,96 @@
+<div class="col-md-6 col-md-offset-3">
+    <h2>Регистрация</h2>
+    <form name="form" ng-submit="vm.register()" role="form">
+      <div layout layout-sm="column">
+        <md-input-container flex>
+          <label for="firstName">Имя</label>
+          <input type="text" name="firstName" id="firstName" ng-model="vm.user.firstName" required />
+            <div class="errors" ng-messages="form.firstName.$error">
+              <div class="md-input-message-animation" ng-message="required"  ng-if="form.firstName.$touched && form.firstName.$error.required">Поле "Имя" не может быть пустым.</div>
+            </div>
+        </md-input-container >
+
+        <md-input-container flex>
+          <label for="patronymic">Отчество</label>
+          <input type="text" name="patronymic" id="patronymic" ng-model="vm.user.patronymic" required />
+            <div class="errors" ng-messages="form.patronymic.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.patronymic.$touched && form.patronymic.$error.required">Поле "Отчество" не может быть пустым.</div>
+            </div>
+        </md-input-container >
+      </div>
+
+      <div layout layout-sm="column">
+        <md-input-container flex>
+          <label for="lastName">Фамилия</label>
+          <input type="text" name="lastName" id="lastName" ng-model="vm.user.lastName" required />
+            <div class="errors" ng-messages="form.lastName.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.lastName.$touched && form.lastName.$error.required">Поле "Фамилия" не может быть пустым.</div>
+            </div>
+        </md-input-container >
+      </div>
+
+      <div layout layout-sm="column">
+        <md-input-container flex>
+            <label for="username">Логин</label>
+            <input type="text" name="username" id="username" ng-model="vm.username" required />
+            <div class="errors" ng-messages="form.username.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.username.$touched && form.username.$error.required">Поле "Логин" не может быть пустым.</div>
+            </div>
+        </md-input-container >
+      </div>
+
+      <div layout layout-sm="column">
+        <md-input-container flex>
+          <label for="password">Пароль</label>
+          <input type="password" name="password" id="password" ng-model="vm.password" required />
+          <!-- <md-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon> -->
+          <div class="errors" ng-messages="form.password.$error">
+            <div class="md-input-message-animation" ng-message="required" ng-if="form.password.$touched && form.password.$error.required">Поле "Пароль" не может быть пустым.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container  md-is-error="form.confirmPassword.$touched && (form.confirmPassword.$error.required || form.password.$touched && vm.confirmPassword != vm.password)" flex>
+          <label for="confirmPassword">Подтверждение пароля</label>
+          <input type="password" name="confirmPassword" id="confirmPassword" ng-model="vm.confirmPassword" required />
+          <div class="errors" ng-messages="form.confirmPassword.$error">
+            <div class="md-input-message-animation" ng-message="required" ng-if="form.confirmPassword.$touched && form.confirmPassword.$error.required">Поле "Подтверждение пароля" не может быть пустым.</div>
+            <div class="md-input-message-animation" ng-if="vm.confirmPassword != vm.password">Пароли должны совпадать.</div>
+          </div>
+        </md-input-container>
+
+      </div>
+
+      <div layout layout-sm="column">
+        <md-input-container flex>
+            <label for="username">Электронная почта</label>
+            <input type="email" name="email" id="email" ng-model="vm.email" ng-pattern="/^.+@.+\..+$/" required />
+            <div class="errors" ng-messages="form.email.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.email.$touched && form.email.$error.required">Поле "Email" не может быть пустым.</div>
+              <div class="md-input-message-animation" ng-message="pattern" ng-if="form.email.$touched && form.email.$error.pattern">Введённое значение не соответствует шаблону корректного email.</div>
+            </div>
+        </md-input-container >
+      </div>
+
+      <div layout layout-sm="column">
+        <md-input-container flex>
+            <label for="username">Номер телефона</label>
+            <input type="text" name="phoneNumber" id="phoneNumber" ng-model="vm.phoneNumber" ng-pattern="/^(\+?375|80)?(29|25|44|33)(\d{3})(\d{2})(\d{2})$/" required />
+            <div class="errors" ng-messages="form.phoneNumber.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.phoneNumber.$touched && form.phoneNumber.$error.required">Поле "Номер телефона" не может быть пустым.</div>
+              <div class="md-input-message-animation" ng-message="pattern" ng-if="form.phoneNumber.$touched && form.phoneNumber.$error.pattern">Введённое значение не соответствует формату белорусского номера телефона.</div>
+            </div>
+        </md-input-container >
+      </div>
+
+      <div layout layout-sm="column" class="form-actions  space-top text-center">
+        <md-button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="md-accent  md-raised waves-effect waves-light btn done">
+          <i class="material-icons left">done</i> Зарегистрироваться
+        </md-button>
+        <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <md-button class="md-accent" href="#!/login">Отмена</md-button>
+      </div>
+
+
+
+    </form>
+</div>
