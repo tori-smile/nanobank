@@ -103,7 +103,7 @@
 
           <md-input-container flex>
             <label for="cvv2">CVV2</label>
-            <input type="text" name="cvv2" id="cvv2" ng-model="vm.cvv2" ng-pattern="/^\d{3}$/" required />
+            <input type="text" name="cvv2" id="cvv2" ng-model="vm.user.cardCVV2Key" ng-pattern="/^\d{3}$/" required />
             <div class="errors" ng-messages="form.cvv2.$error">
               <div class="md-input-message-animation" ng-message="required" ng-if="form.cvv2.$touched && form.cvv2.$error.required">Поле "CVV2" не может быть пустым.</div>
               <div class="md-input-message-animation" ng-message="pattern" ng-if="form.cvv2.$touched && form.cvv2.$error.pattern">Введённое значение не соответствует формату CVV2(xxx).</div>
