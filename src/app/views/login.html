@@ -9,7 +9,7 @@
             <label for="username">Логин</label>
             <input type="text" name="username" id="username" ng-model="vm.username" placeholder="Введите логин" required />
             <div class="errors" ng-messages="form.username.$error">
-              <div ng-message="required">Поле "Логин" не может быть пустым.</div>
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.username.$touched && form.username.$error.required">Поле "Логин" не может быть пустым.</div>
             </div>
         </md-input-container >
       </div>
@@ -18,7 +18,7 @@
           <label for="password">Пароль</label>
           <input type="password" name="password" id="password" ng-model="vm.password" placeholder="Введите пароль" required />
           <div class="errors" ng-messages="form.password.$error">
-            <div ng-message="required">Поле "Пароль" не может быть пустым.</div>
+            <div class="md-input-message-animation" ng-message="required"  ng-if="form.password.$touched && form.password.$error.required">Поле "Пароль" не может быть пустым.</div>
           </div>
         </md-input-container>
       </div>
