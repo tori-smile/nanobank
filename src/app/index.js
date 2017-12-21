@@ -7,7 +7,7 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
                     $mdIconProvider) {
     $stateProvider
       .state('home', {
-        url: '/home',
+        url: '',
         templateUrl: 'app/views/main.html',
         controller: 'MainController',
         controllerAs: 'vm',
@@ -23,9 +23,6 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
         },
         resolve:{
           deals: ['$http','$stateParams', function($http, $stateParams) {
-            // console.log($stateParams); // comes through fine
-            // var state = this;
-            // console.log(state); // will give you a "raw" state object
             return $http({
               method: 'GET',
               url: 'http://nanobank.azurewebsites.net/api/deal/all'
@@ -43,9 +40,6 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
         },
         resolve:{
           user: ['$http','$stateParams', function($http, $stateParams) {
-            // console.log($stateParams); // comes through fine
-            // var state = this;
-            // console.log(state); // will give you a "raw" state object
             return $http({
               method: 'GET',
               url: 'http://nanobank.azurewebsites.net/api/user/admin'
@@ -71,12 +65,6 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
           title: 'Table'
         }
       })
-      .state('homes', {
-        url: '/',
-        controller: 'HomeController',
-        templateUrl: 'app/views/home.html',
-        controllerAs: 'vm'
-      })
       .state('login', {
         url: '/login',
         controller: 'LoginController',
@@ -90,7 +78,7 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
         controllerAs: 'vm'
       });
 
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/dashboard');
 
     $mdThemingProvider
       .theme('default')
@@ -133,19 +121,19 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
 
     $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
   })
-  .run(function ($rootScope, $location, $cookieStore, $http){
+  .run(['$rootScope', '$state', '$cookieStore', '$http', function ($rootScope, $state, $cookieStore, $http){
     $rootScope.globals = $cookieStore.get('globals') || {};
     if ($rootScope.globals.currentUser) {
         $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
     }
 
-    $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        // redirect to login page if not logged in and trying to access a restricted page
-        var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
-        var loggedIn = $rootScope.globals.currentUser;
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        var restrictedPage = ['/login', '/register'].indexOf(toState.url) === -1;
+        var loggedIn = angular.isDefined($rootScope.globals.currentUser)
         if (restrictedPage && !loggedIn) {
-            //$location.path('/login');
+          event.preventDefault();
+          $state.transitionTo('login');
         }
     });
-  })
+  }])
   ;
