@@ -23,7 +23,7 @@
       loadAll : function() {
         return allCards.map(function(card) {
           return {
-            value: card.replace(/ /g,'');,
+            value: card.replace(/ /g,''),
             display: card
           };
         });
