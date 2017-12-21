@@ -5,9 +5,10 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http'];
-    function UserService($http) {
+    UserService.$inject = ['$http', '$httpParamSerializerJQLike'];
+    function UserService($http, $httpParamSerializerJQLike) {
         var service = {};
+        var API_BASE = 'http://nanobank.azurewebsites.net'
 
         service.GetAll = GetAll;
         service.GetById = GetById;
@@ -15,6 +16,7 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.Login = Login;
 
         return service;
 
@@ -32,8 +34,7 @@
 
         function Create(user) {
           console.log(user);
-            // return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
-            return "oks"
+            return $http.post(API_BASE + '/api/account/register', user).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {
@@ -44,6 +45,20 @@
             return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
 
+        function Login(username, password){
+          var loginInfo = {
+            'grant_type': 'password',
+            'username': username,
+            'password': password
+          }
+          console.log('loginInfo', loginInfo);
+          return $http({
+            method: 'POST',
+            url: API_BASE + '/api/token',
+            data:  $httpParamSerializerJQLike(loginInfo),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then(handleSuccess, handleError('Error logging in user'))
+        }
         // private functions
 
         function handleSuccess(res) {
