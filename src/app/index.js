@@ -113,7 +113,7 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
 
     $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
   })
-  .run(['$rootScope', '$state', '$cookieStore', '$http', function ($rootScope, $state, $cookieStore, $http){
+  .run(['$rootScope', '$state', '$cookieStore', '$http', 'UserService', function ($rootScope, $state, $cookieStore, $http, UserService){
     $rootScope.globals = $cookieStore.get('globals') || {};
     if ($rootScope.globals.currentUser) {
         $http.defaults.headers.common['Authorization'] = 'bearer ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
@@ -122,9 +122,12 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         var restrictedPage = ['/login', '/register'].indexOf(toState.url) === -1;
         var loggedIn = angular.isDefined($rootScope.globals.currentUser)
+        var informationExists = angular.isDefined(UserService.currentUser.firstName);
         if (restrictedPage && !loggedIn) {
           event.preventDefault();
           $state.transitionTo('login');
+        }else if (!informationExists){
+          UserService.currentUsername = $rootScope.globals.currentUser.username;
         }
     });
   }])
