@@ -5,8 +5,8 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http', '$httpParamSerializerJQLike'];
-    function UserService($http, $httpParamSerializerJQLike) {
+    UserService.$inject = ['$http', '$httpParamSerializerJQLike', '$state'];
+    function UserService($http, $httpParamSerializerJQLike, $state) {
         var service = {};
         var API_BASE = 'http://nanobank.azurewebsites.net'
         var specialContentType = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
@@ -20,6 +20,8 @@
         service.Delete = Delete;
         service.Login = Login;
         service.currentUser = {};
+        service.setCurrentUserAndGoToState = setCurrentUserAndGoToState;
+        service.setCurrentUser = setCurrentUser;
 
         return service;
 
@@ -57,6 +59,18 @@
             'password': password
           }
           return $http.post(API_BASE + '/api/token', processData(loginInfo), specialContentType).then(handleSuccess, handleError('Error logging in user'));
+        }
+
+        function setCurrentUserAndGoToState(username, toState){
+          setCurrentUser(username).then(
+            $state.go(toState)
+          )
+        }
+
+        function setCurrentUser(username){
+          return GetByUsername(username).then(function (response){
+            service.currentUser = response;
+          });
         }
         // private functions
 
