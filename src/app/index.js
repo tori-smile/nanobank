@@ -37,14 +37,6 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
         controllerAs: 'vm',
         data: {
           title: 'Profile',
-        },
-        resolve:{
-          user: ['$http','$stateParams', function($http, $stateParams) {
-            return $http({
-              method: 'GET',
-              url: 'http://nanobank.azurewebsites.net/api/user/admin'
-            });
-          }]
         }
       })
       .state('home.table', {
