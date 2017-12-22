@@ -21,22 +21,13 @@
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.success) {
                     AuthenticationService.SetCredentials(vm.username, vm.password, response);
-                    putInformationToUserServiceAndGo(vm.username)
+                    UserService.setCurrentUserAndGoToState(vm.username, 'home.dashboard')
                 } else {
                     FlashService.Error(response.message);
                     vm.dataLoading = false;
                 }
             });
         };
-
-        function putInformationToUserServiceAndGo(username){
-          UserService.GetByUsername(username).then(
-            function (response){
-              UserService.currentUser = response;
-              $state.go("home.dashboard");
-            },
-            function (error){});
-        }
     }
 
 })();
