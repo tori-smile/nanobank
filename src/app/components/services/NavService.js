@@ -31,7 +31,7 @@
       },
       {
         name: 'Пользователи',
-        icon: 'person',
+        icon: 'supervisor_account',
         sref: '.users'
       }
     ];
