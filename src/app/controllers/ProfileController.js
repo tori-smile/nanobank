@@ -2,29 +2,16 @@
 
   angular
     .module('app')
-    .controller('ProfileController', ['user',
+    .controller('ProfileController', ['UserService',
       ProfileController
     ]);
 
-  function ProfileController(user) {
+  function ProfileController(UserService) {
     var vm = this;
 
-    vm.user = user.data;
-    vm.user.phoneNumber = '+' + vm.user.phoneNumber;
-    //
-    // vm.user = {
-    //   title: 'Admin',
-    //   email: 'contact@flatlogic.com',
-    //   firstName: '',
-    //   lastName: '' ,
-    //   company: 'FlatLogic Inc.' ,
-    //   address: 'Fabritsiusa str, 4' ,
-    //   city: 'Minsk' ,
-    //   state: '' ,
-    //   biography: 'We are young and ambitious full service design and technology company. ' +
-    //   'Our focus is JavaScript development and User Interface design.',
-    //   postalCode : '220007'
-    // };
+    vm.user = UserService.currentUser;
+    var match = /^(\+?375|80)?(29|25|44|33)(\d{3})(\d{2})(\d{2})$/.exec(vm.user.phoneNumber);
+    vm.user.phoneNumber = '+375' + match.slice(2).join('');
   }
 
 })();
