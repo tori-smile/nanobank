@@ -14,7 +14,9 @@
     vm.selectItem = selectItem;
     vm.toggleItemsList = toggleItemsList;
     //vm.showActions = showActions;  unused
-    vm.userFullName = UserService.currentUser.firstName +" "+ UserService.currentUser.lastName;
+    UserService.setCurrentUser(UserService.currentUsername).then(function(){
+      vm.userFullName = UserService.currentUser.firstName +" "+ UserService.currentUser.lastName;
+    });
     vm.title = $state.current.data.title;
     vm.showSimpleToast = showSimpleToast;
     vm.toggleRightSidebar = toggleRightSidebar;
