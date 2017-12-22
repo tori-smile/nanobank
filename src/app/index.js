@@ -124,7 +124,7 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
   .run(['$rootScope', '$state', '$cookieStore', '$http', function ($rootScope, $state, $cookieStore, $http){
     $rootScope.globals = $cookieStore.get('globals') || {};
     if ($rootScope.globals.currentUser) {
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+        $http.defaults.headers.common['Authorization'] = 'bearer ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
     }
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
