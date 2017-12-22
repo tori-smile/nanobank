@@ -5,8 +5,8 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$state', 'AuthenticationService', 'FlashService'];
-    function LoginController($state, AuthenticationService, FlashService) {
+    LoginController.$inject = ['$state', 'AuthenticationService', 'FlashService', 'UserService'];
+    function LoginController($state, AuthenticationService, FlashService, UserService) {
         var vm = this;
 
         vm.login = login;
@@ -21,13 +21,22 @@
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.success) {
                     AuthenticationService.SetCredentials(vm.username, vm.password, response);
-                    $state.go("home.dashboard");
+                    putInformationToUserServiceAndGo(vm.username)
                 } else {
                     FlashService.Error(response.message);
                     vm.dataLoading = false;
                 }
             });
         };
+
+        function putInformationToUserServiceAndGo(username){
+          UserService.GetByUsername(username).then(
+            function (response){
+              UserService.currentUser = response;
+              $state.go("home.dashboard");
+            },
+            function (error){});
+        }
     }
 
 })();
