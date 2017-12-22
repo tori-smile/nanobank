@@ -9,27 +9,30 @@
     function UserService($http, $httpParamSerializerJQLike) {
         var service = {};
         var API_BASE = 'http://nanobank.azurewebsites.net'
+        var specialContentType = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
+
 
         service.GetAll = GetAll;
-        service.GetById = GetById;
+        service.GetAllUnapproved = GetAllUnapproved;
         service.GetByUsername = GetByUsername;
         service.Create = Create;
-        service.Update = Update;
+        service.Approve = Approve;
         service.Delete = Delete;
         service.Login = Login;
+        service.currentUser = {};
 
         return service;
 
         function GetAll() {
-            return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
+            return $http.get(API_BASE + '/api/user/all').then(handleSuccess, handleError('Error getting all users'));
         }
 
-        function GetById(id) {
-            return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
+        function GetAllUnapproved() {
+            return $http.get(API_BASE + '/api/user/all/unapproved').then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetByUsername(username) {
-            return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.get(API_BASE + '/api/user/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function Create(user) {
@@ -37,12 +40,14 @@
             return $http.post(API_BASE + '/api/account/register', user).then(handleSuccess, handleError('Error creating user'));
         }
 
-        function Update(user) {
-            return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+        function Approve(username) {
+            // application/x-www-form-urlencoded
+            return $http.put(API_BASE + '/api/account/approve/' + username, '', specialContentType).then(handleSuccess, handleError('Error updating user'));
         }
 
-        function Delete(id) {
-            return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
+        function Delete(username) {
+          // application/x-www-form-urlencoded
+            return $http.delete(API_BASE + '/api/account/' + username, '', specialContentType).then(handleSuccess, handleError('Error deleting user'));
         }
 
         function Login(username, password){
@@ -51,17 +56,16 @@
             'username': username,
             'password': password
           }
-          console.log('loginInfo', loginInfo);
-          return $http({
-            method: 'POST',
-            url: API_BASE + '/api/token',
-            data:  $httpParamSerializerJQLike(loginInfo),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          }).then(handleSuccess, handleError('Error logging in user'))
+          return $http.post(API_BASE + '/api/token', processData(loginInfo), specialContentType).then(handleSuccess, handleError('Error logging in user'));
         }
         // private functions
 
+        function processData(data){
+          return $httpParamSerializerJQLike(data);
+        }
+
         function handleSuccess(res) {
+            console.log(res.data);
             return res.data;
         }
 
