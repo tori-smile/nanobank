@@ -57,6 +57,15 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
           title: 'Table'
         }
       })
+      .state('home.users', {
+        url: '/users',
+        controller: 'UsersController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/users.html',
+        data: {
+          title: 'Table'
+        }
+      })
       .state('login', {
         url: '/login',
         controller: 'LoginController',

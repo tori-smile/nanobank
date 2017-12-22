@@ -28,6 +28,11 @@
         name: 'Оформить заявку',
         icon: 'create',
         sref: '.data-table'
+      },
+      {
+        name: 'Пользователи',
+        icon: 'person',
+        sref: '.users'
       }
     ];
 
