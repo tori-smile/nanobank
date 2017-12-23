@@ -2,16 +2,24 @@
 
   angular
     .module('app')
-    .controller('ProfileController', ['UserService',
+    .controller('ProfileController', ['UserService', 'helpService', '$timeout',
       ProfileController
     ]);
 
-  function ProfileController(UserService) {
+  function ProfileController(UserService, helpService, $timeout) {
     var vm = this;
 
-    vm.user = UserService.currentUser;
-    var match = /^(\+?375|80)?(29|25|44|33)(\d{3})(\d{2})(\d{2})$/.exec(vm.user.phoneNumber);
-    vm.user.phoneNumber = '+375' + match.slice(2).join('');
+    waitForCurrentUser();
+
+    function waitForCurrentUser(){
+      $timeout(function() {
+        vm.user = UserService.currentUser;
+        vm.user.phoneNumber = helpService.formatPhoneNumber(vm.user.phoneNumber)
+        if (angular.isUndefined(vm.user.firstName)){
+          waitForCurrentUser()
+        };
+      }, 500);
+    }
   }
 
 })();
