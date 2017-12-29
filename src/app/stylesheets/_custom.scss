@@ -175,3 +175,39 @@ md-backdrop.md-sidenav-backdrop {
 .md-chips md-chip {
   background: none;
 }
+
+/* DivTable.com */
+.divTable {
+	display: table;
+	width: 100%;
+  table-layout: fixed;
+}
+.divTableRow {
+	display: table-row;
+  width: 100%
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+.divTableCell, .divTableHead {
+	display: table-cell;
+	padding: 3px 10px;
+  max-width: 33%
+}
+.divTableBody {
+	display: table-row-group;
+}
+
+.hint {
+/* Position the hint */
+position: absolute;
+left: 2px;
+right: auto;
+bottom: 7px;
+/* Copy styles from ng-messages */
+font-size: 12px;
+line-height: 14px;
+transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+/* Set our own color */
+color: grey; }
