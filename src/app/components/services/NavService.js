@@ -27,12 +27,17 @@
       {
         name: 'Оформить заявку',
         icon: 'create',
-        sref: '.data-table'
+        sref: '.deal'
       },
       {
         name: 'Пользователи',
         icon: 'supervisor_account',
         sref: '.users'
+      },
+      {
+        name: 'Запросы',
+        icon: 'supervisor_account',
+        sref: '.requests'
       }
     ];
 

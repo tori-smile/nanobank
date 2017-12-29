@@ -20,14 +20,6 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
         controllerAs: 'vm',
         data: {
           title: 'Dashboard'
-        },
-        resolve:{
-          deals: ['$http','$stateParams', function($http, $stateParams) {
-            return $http({
-              method: 'GET',
-              url: 'http://nanobank.azurewebsites.net/api/deal/all'
-            });
-          }]
         }
       })
       .state('home.profile', {
@@ -41,20 +33,23 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
       })
       .state('home.table', {
         url: '/table',
-        controller: 'TableController',
+        controller: 'MyRequestsController',
         controllerAs: 'vm',
-        templateUrl: 'app/views/table.html',
+        templateUrl: 'app/views/my-requests.html',
         data: {
           title: 'Table'
         }
       })
-      .state('home.data-table', {
-        url: '/data-table',
-        controller: 'DataTableController',
+      .state('home.deal', {
+        url: '/deal',
+        controller: 'DealController',
         controllerAs: 'vm',
-        templateUrl: 'app/views/data-table.html',
+        templateUrl: 'app/views/deal.html',
         data: {
           title: 'Table'
+        },
+        params:{
+          deal: null,
         }
       })
       .state('home.users', {
@@ -63,7 +58,16 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
         controllerAs: 'vm',
         templateUrl: 'app/views/users.html',
         data: {
-          title: 'Table'
+          title: 'Users'
+        }
+      })
+      .state('home.requests', {
+        url: '/requests',
+        controller: 'RequestsController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/requests.html',
+        data: {
+          title: 'Requests'
         }
       })
       .state('login', {
@@ -122,8 +126,11 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
 
     $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
   })
-  .run(['$rootScope', '$state', '$cookieStore', '$http', 'UserService', function ($rootScope, $state, $cookieStore, $http, UserService){
+  .run(['$rootScope', '$state', '$stateParams', '$cookieStore', '$http', 'UserService', function ($rootScope, $state, $stateParams,$cookieStore, $http, UserService){
     $rootScope.globals = $cookieStore.get('globals') || {};
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+
     if ($rootScope.globals.currentUser) {
         $http.defaults.headers.common['Authorization'] = 'bearer ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
     }
