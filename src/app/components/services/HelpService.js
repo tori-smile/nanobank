@@ -2,16 +2,17 @@
   'use strict';
 
   angular.module('app')
-          .service('helpService', [
+          .service('helpService', ['$mdDialog',
           helpService
   ]);
 
-  function helpService(){
+  function helpService($mdDialog){
     var service = {};
 
     service.formatPhoneNumber = formatPhoneNumber;
     service.formatRating = formatRating;
     service.formatDatePeriod = formatDatePeriod;
+    service.getConfirmDialog = getConfirmDialog;
 
     function formatPhoneNumber(phoneNumber){
       var match = /^(\+?375|80)?(29|25|44|33)(\d{3})(\d{2})(\d{2})$/.exec(phoneNumber);
@@ -47,6 +48,27 @@
       }
 
       return answer;
+    }
+
+    function getConfirmDialog(title, textContent, ok){
+      var confirm = $mdDialog.confirm({
+                    onComplete: function afterShowAnimation() {
+                        var $dialog = angular.element(document.querySelector('md-dialog'));
+                        var $actionsSection = $dialog.find('md-dialog-actions');
+                        var $cancelButton = $actionsSection.children()[0];
+                        var $confirmButton = $actionsSection.children()[1];
+                        angular.element($confirmButton).addClass('md-raised md-accent');
+                        angular.element($cancelButton).addClass('md-accent');
+                    }
+      })
+            .title(title)
+            .textContent(textContent)
+            .ariaLabel('Lucky day')
+            .targetEvent(null)
+            .ok('Да, ' + ok)
+            .cancel('Отмена');
+
+      return confirm;
     }
 
     return service;
