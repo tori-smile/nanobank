@@ -2,29 +2,33 @@
 
   angular
     .module('app')
-    .controller('DashboardController', ['deals',
+    .controller('DashboardController', ['DealService', 'helpService',
       DashboardController
     ]);
 
-  function DashboardController(deals) {
+  function DashboardController(DealService, helpService) {
     var vm = this;
-    vm.deals = deals.data;
-    console.log("DashboardController", vm.deals);
 
-    //
-    // vm.user = {
-    //   title: 'Admin',
-    //   email: 'contact@flatlogic.com',
-    //   firstName: '',
-    //   lastName: '' ,
-    //   company: 'FlatLogic Inc.' ,
-    //   address: 'Fabritsiusa str, 4' ,
-    //   city: 'Minsk' ,
-    //   state: '' ,
-    //   biography: 'We are young and ambitious full service design and technology company. ' +
-    //   'Our focus is JavaScript development and User Interface design.',
-    //   postalCode : '220007'
-    // };
+    DealService.GetAllOpen().then(function(resourse){
+      vm.deals = resourse;
+      vm.deals.forEach(function(deal, i){
+        vm.deals[i].dealDurationInWords = helpService.formatDatePeriod(deal.dealDurationInMonth)
+      });
+      vm.separatedIntoThreeData = breakDataIntoThree();
+      vm.activated = true;
+
+    });
+
+    function breakDataIntoThree(){
+      var count = 3;
+      var i = 0;
+      var separatedValues = [];
+      while (i < vm.deals.length){
+          separatedValues.push(vm.deals.slice(i, i+3));
+          i += 3;
+      }
+      return separatedValues;
+    }
   }
 
 })();
