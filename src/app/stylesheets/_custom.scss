@@ -211,3 +211,37 @@ line-height: 14px;
 transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
 /* Set our own color */
 color: grey; }
+
+.ngrateit-star{
+    background-size: 32px;
+}
+
+/* Reset button */
+.custom .ngrateit-reset{
+    background-image: url("../../assets/images/cancel-icon.svg");
+}
+/* Background */
+.custom .ngrateit-bg-star{
+    background-image: url("../../assets/images/bg-star.svg");
+}
+/* Selected state */
+.negative{
+  .ngrateit-selected {
+      background-image: url("../../assets/images/negative-rated-star.svg");
+  }
+}
+
+.positive{
+  .ngrateit-selected {
+      background-image: url("../../assets/images/positive-rated-star.svg");
+  }
+}
+
+/* Cancelation of hover styling */
+.custom.ngrateit:not(.ngrateit-readonly) .ngrateit-rating span:hover ~ span {
+    background-image: url("../../assets/images/bg-star.svg");
+}
+/* Hover styling */
+.custom.ngrateit:not(.ngrateit-readonly) .ngrateit-rating:hover span {
+    background-image: url("../../assets/images/hover-star.svg");
+}
