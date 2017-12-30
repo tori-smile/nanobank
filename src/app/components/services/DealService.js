@@ -18,6 +18,8 @@
         service.Update = Update;
         service.Response = Response;
         service.Delete = Delete;
+        service.SetRating = SetRating;
+        service.CloseDeal = CloseDeal;
         return service;
 
         function GetAll() {
@@ -48,6 +50,14 @@
         function Delete(dealid) {
           // application/x-www-form-urlencoded
             return $http.delete(API_BASE + '/api/deal/' + dealid, '', specialContentType).then(handleSuccess, handleError('Error deleting deal'));
+        }
+
+        function SetRating(dealId, ratingData){
+          return $http.put(API_BASE + '/api/deal/' + dealId + '/set/rating', ratingData).then(handleSuccess, handleError('Error setting rating to deal'));
+        }
+
+        function CloseDeal(dealId, creditorUsername){
+          return $http.put(API_BASE + '/api/deal/close/' + dealId, JSON.stringify(creditorUsername)).then(handleSuccess, handleError('Error closing deal'));
         }
         // private functions
 
