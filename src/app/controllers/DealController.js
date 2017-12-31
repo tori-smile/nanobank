@@ -21,7 +21,6 @@
     vm.payForDeal = payForDeal;
 
     if (vm.deal != null){
-      console.log(vm.deal);
       updateStartState();
       defineRating();
       defineIsOverdue();
@@ -188,14 +187,12 @@
       var ok = 'пожаловаться';
 
       $mdDialog.show(helpService.getDialogWithInput(title, textContent, placeholder, initialValue, ok)).then(function(result) {
-        console.log(result);
         var complainData = {
           'DealId': vm.deal.id,
           'ComplainText': result,
           'Username': UserService.currentUsername
         }
         DealService.Complain(complainData).then(function(result){
-          console.log('finished complain');
         })
       }, function() {
 
@@ -211,14 +208,12 @@
 
       $mdDialog.show(helpService.getDialogWithInput(title, textContent, placeholder, initialValue, ok))
       .then(function(result) {
-        console.log(result);
         var payData = {
           'DealId': vm.deal.id,
           'Amount': result,
           'Username': UserService.currentUsername
         }
         DealService.Pay(payData).then(function(response){
-          console.log('success', response.success);
           if (angular.isUndefined(response.success)){
             vm.deal.returnedAmount = +vm.deal.returnedAmount + +result;
           };
