@@ -15,12 +15,19 @@
     vm.toggleItemsList = toggleItemsList;
     UserService.setCurrentUser(UserService.currentUsername).then(function(){
       vm.userFullName = UserService.currentUser.firstName +" "+ UserService.currentUser.lastName;
+      if (UserService.currentUser.roles.includes('Admin')){
+        navService
+          .loadAllItems()
+          .then(function(menuItems) {
+            vm.menuItems = [].concat(menuItems);
+          });
+      }
     });
     vm.title = $state.current.data.title;
     vm.showSimpleToast = showSimpleToast;
 
     navService
-      .loadAllItems()
+      .loadUserItems()
       .then(function(menuItems) {
         vm.menuItems = [].concat(menuItems);
       });

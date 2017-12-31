@@ -12,41 +12,53 @@
       {
         name: 'Список заявок',
         icon: 'dashboard',
-        sref: '.dashboard'
+        sref: '.dashboard',
+        roles : ['admin', 'user'],
       },
       {
         name: 'Мои сделки',
         icon: 'view_module',
-        sref: '.table'
+        sref: '.table',
+        roles : ['admin', 'user'],
       },
       {
         name: 'Личный кабинет',
         icon: 'person',
-        sref: '.profile'
+        sref: '.profile',
+        roles : ['admin', 'user'],
       },
       {
         name: 'Оформить заявку',
         icon: 'create',
-        sref: '.deal'
+        sref: '.deal',
+        roles : ['admin', 'user'],
       },
       {
         name: 'Пользователи',
         icon: 'supervisor_account',
-        sref: '.users'
+        sref: '.users',
+        roles : ['admin'],
       },
       {
         name: 'Запросы',
         icon: 'supervisor_account',
-        sref: '.requests'
+        sref: '.requests',
+        roles : ['admin'],
       },
       {
         name: 'Жалобы',
         icon: 'thumb_down',
-        sref: '.complains'
+        sref: '.complains',
+        roles : ['admin'],
       }
     ];
 
     return {
+      loadUserItems : function(){
+        return $q.when(menuItems.filter(function(item){
+          return item.roles.includes('user');
+        }))
+      },
       loadAllItems : function() {
         return $q.when(menuItems);
       }
