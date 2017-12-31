@@ -38,6 +38,11 @@
         name: 'Запросы',
         icon: 'supervisor_account',
         sref: '.requests'
+      },
+      {
+        name: 'Жалобы',
+        icon: 'thumb_down',
+        sref: '.complains'
       }
     ];
 

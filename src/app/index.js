@@ -70,6 +70,15 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
           title: 'Requests'
         }
       })
+      .state('home.complains', {
+        url: '/complains',
+        controller: 'ComplainsController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/complains.html',
+        data: {
+          title: 'Complains'
+        }
+      })
       .state('login', {
         url: '/login',
         controller: 'LoginController',
