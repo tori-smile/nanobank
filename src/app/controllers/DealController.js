@@ -18,6 +18,7 @@
     vm.confirmNegativeReset = confirmNegativeReset;
     vm.closeDeal = closeDeal;
     vm.complainAboutDeal = complainAboutDeal;
+    vm.payForDeal = payForDeal;
 
     if (vm.deal != null){
       console.log(vm.deal);
@@ -180,27 +181,13 @@
 
     function complainAboutDeal(ev) {
       // App ending dialog to document.body to cover sidenav in docs app
-      var confirm = $mdDialog.prompt({
-                    onComplete: function afterShowAnimation() {
-                        var $dialog = angular.element(document.querySelector('md-dialog'));
-                        var $actionsSection = $dialog.find('md-dialog-actions');
-                        var $cancelButton = $actionsSection.children()[0];
-                        var $confirmButton = $actionsSection.children()[1];
-                        angular.element($confirmButton).addClass('md-raised md-accent md-warn');
-                        angular.element($cancelButton).addClass('md-accent md-warn');
-                    }
-      })
-        .title('Пожаловаться')
-        .textContent('Заёмщик не выплачивает вовремя?')
-        .placeholder('Опишите Вашу ситуацию')
-        .ariaLabel('Dog name')
-        .initialValue('')
-        .targetEvent(ev)
-        .required(true)
-        .ok('пожаловаться')
-        .cancel('отмена');
+      var title = 'Пожаловаться';
+      var textContent = 'Заёмщик не выплачивает вовремя?'
+      var placeholder = 'Опишите Вашу ситуацию';
+      var initialValue = '';
+      var ok = 'пожаловаться';
 
-      $mdDialog.show(confirm).then(function(result) {
+      $mdDialog.show(helpService.getDialogWithInput(title, textContent, placeholder, initialValue, ok)).then(function(result) {
         console.log(result);
         var complainData = {
           'DealId': vm.deal.id,
@@ -209,6 +196,32 @@
         }
         DealService.Complain(complainData).then(function(result){
           console.log('finished complain');
+        })
+      }, function() {
+
+      });
+    };
+
+    function payForDeal(ev) {
+      var title = 'Оплата';
+      var textContent = 'Впишите сумму, которую Вы готовы заплатить сейчас.'
+      var placeholder = 'Сумма';
+      var initialValue = '1';
+      var ok = 'заплатить';
+
+      $mdDialog.show(helpService.getDialogWithInput(title, textContent, placeholder, initialValue, ok))
+      .then(function(result) {
+        console.log(result);
+        var payData = {
+          'DealId': vm.deal.id,
+          'Amount': result,
+          'Username': UserService.currentUsername
+        }
+        DealService.Pay(payData).then(function(response){
+          console.log('success', response.success);
+          if (response.success){
+            vm.deal.returnedAmount = +vm.deal.returnedAmount + +result;
+          };
         })
       }, function() {
 
