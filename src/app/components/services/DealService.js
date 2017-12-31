@@ -14,6 +14,7 @@
         service.GetAll = GetAll;
         service.GetAllOpen = GetAllOpen;
         service.GetAllUserDeals = GetAllUserDeals;
+        service.GetById = GetById;
         service.Create = Create;
         service.Update = Update;
         service.Response = Response;
@@ -33,6 +34,10 @@
 
         function GetAllUserDeals(username) {
             return $http.get(API_BASE + '/api/deal/' + username + '/all').then(handleSuccess, handleError('Error getting all deals'));
+        }
+
+        function GetById(dealId) {
+            return $http.get(API_BASE + '/api/deal/' + dealId).then(handleSuccess, handleError('Error getting deal by dealId'));
         }
 
         function Create(deal) {
