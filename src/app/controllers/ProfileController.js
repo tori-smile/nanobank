@@ -8,6 +8,7 @@
 
   function ProfileController(UserService, helpService, $timeout) {
     var vm = this;
+    vm.one = 1;
 
     waitForCurrentUser();
 
