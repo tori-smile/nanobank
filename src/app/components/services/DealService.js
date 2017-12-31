@@ -22,6 +22,7 @@
         service.SetRating = SetRating;
         service.Close = Close;
         service.Complain = Complain;
+        service.Pay = Pay;
         return service;
 
         function GetAll() {
@@ -69,6 +70,10 @@
         function Complain(complainData){
           return $http.post(API_BASE + '/api/complain', processData(complainData), specialContentType).then(handleSuccess, handleError('Error closing deal'));
         }
+
+        function Pay(payData){
+          return $http.put(API_BASE + '/api/creditcard/transit', payData).then(handleSuccess, handleError('Error paying for deal'));
+        }
         // private functions
 
         function processData(data){
@@ -77,7 +82,8 @@
 
         function handleSuccess(res) {
             console.log(res.data);
-            return res.data;
+            var result = Object.assign({}, res.data, {'success': true});
+            return result;
         }
 
         function handleError(error) {
