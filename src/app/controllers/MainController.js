@@ -3,11 +3,11 @@
   angular
        .module('app')
        .controller('MainController', [
-          'UserService', 'navService', '$mdSidenav', '$mdBottomSheet', '$log', '$q', '$state', '$mdToast',
+          'UserService', 'navService', '$mdSidenav', '$mdBottomSheet', '$log', '$q', '$state', '$mdToast', '$rootScope',
           MainController
        ]);
 
-  function MainController(UserService, navService, $mdSidenav, $mdBottomSheet, $log, $q, $state, $mdToast) {
+  function MainController(UserService, navService, $mdSidenav, $mdBottomSheet, $log, $q, $state, $mdToast, $rootScope) {
     var vm = this;
 
     vm.menuItems = [ ];
@@ -41,9 +41,9 @@
     }
 
     function selectItem (item) {
+      $rootScope.$stateParams.deal = null;
       vm.title = item.name;
       vm.toggleItemsList();
-      vm.showSimpleToast(vm.title);
     }
 
     function showSimpleToast(title) {

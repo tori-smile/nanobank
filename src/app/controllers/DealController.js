@@ -88,7 +88,7 @@
       var ok = 'закрыть'
       $mdDialog.show(helpService.getConfirmDialog(title, textContent, ok)).then(function() {
         DealService.Close(vm.deal.id, UserService.currentUsername).then(function(response){
-          clearData();
+          $rootScope.$stateParams.deal.isClosed = true;
           $state.go($state.current, {}, {reload: true});
         })
       }, function() {
