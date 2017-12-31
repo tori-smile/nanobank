@@ -37,7 +37,7 @@
                 </div>
               </div>
 
-              <div layout layout-sm="column" style="margin: 10px 0;">
+              <div layout layout-sm="column" style="margin: 10px 0;" ng-if='!vm.user.readonly'>
                 <div class="field-view" flex>
                   <label>Электронная почта</label>
                   <span><br />{{vm.user.email}}</span>
@@ -49,7 +49,7 @@
                 </div>
               </div>
 
-              <div layout layout-sm="column"  style="margin: 10px 0;">
+              <div layout layout-sm="column"  style="margin: 10px 0;" ng-if='!vm.user.readonly'>
                 <div class="field-view" flex>
                   <label>Номер карты</label>
                   <span><br />{{vm.user.cardNumber}}</span>
@@ -57,7 +57,7 @@
               </div>
 
               <div layout layout-sm="column" style="margin: 10px 0;">
-                <div class="field-view" flex>
+                <div class="field-view" flex ng-if="!vm.user.readonly">
                   <label>Роли</label>
                   <md-chips ng-model="vm.user.roles" readonly="true">
                     <md-chip-template style="color: #009688;">
@@ -83,10 +83,13 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="showConfirm($event, true)" class="md-accent">
+      <md-button ng-click="close()" ng-if='vm.user.readonly' class="md-accent">
+       закрыть
+      </md-button>
+      <md-button ng-click="showConfirm($event, true)" ng-if='!vm.user.readonly' class="md-accent">
        Удалить пользователя
       </md-button>
-      <md-button ng-click="showConfirm($event, false)" class="md-raised md-accent" ng-if="!vm.user.isApproved">
+      <md-button ng-click="showConfirm($event, false)" ng-if='!vm.user.readonly' class="md-raised md-accent" ng-if="!vm.user.isApproved">
         Подтвердить аккаунт
       </md-button>
     </md-dialog-actions>

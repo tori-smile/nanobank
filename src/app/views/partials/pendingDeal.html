@@ -3,7 +3,13 @@
     <md-card-title>
       <md-card-title-text  style="overflow: hidden">
         <span class="md-headline">{{vm.deal.startAmount}} BYN на {{vm.deal.dealDurationInWords}} с возвратом {{vm.deal.percentRate}}% в месяц</span>
-        <span class="md-subhead np-wrap" style="text-overflow: ellipsis;"><strong>{{vm.deal.ownerUserName}}</strong> {{vm.deal.title}}</span>
+        <span class="md-subhead np-wrap" style="text-overflow: ellipsis;" ng-click="vm.openUserModal()" >
+          <strong>{{vm.deal.ownerUserName}}</strong> {{vm.deal.title}}
+          <md-tooltip md-direction="buttom" >
+              посмотреть профиль пользователя
+          </md-tooltip>
+        </span>
+
       </md-card-title-text>
     </md-card-title>
     <md-card-actions layout="row" layout-align="end center">

@@ -16,6 +16,7 @@
     function pendingDealComponent($state, UserService, DealService, helpService, $mdDialog){
       var vm = this;
       vm.dataLoading=false;
+      vm.openUserModal = openUserModal;
 
       vm.$onInit = function(){
         vm.showButton = vm.deal.ownerUserName !== UserService.currentUsername;
@@ -46,6 +47,29 @@
           }
         }
       };
+
+      function openUserModal(){
+        vm.dataLoading = true;
+        UserService.GetByUsername(vm.deal.ownerUserName).then(function(response){
+          response.readonly = true;
+          showAdvanced(null, response);
+          vm.dataLoading = false;
+        })
+      }
+
+    function showAdvanced(ev, data) {
+         $mdDialog.show({
+           locals:{user: data},
+           controller: 'UserDialogController',
+           templateUrl: 'app/views/partials/userDialog.html',
+           parent: angular.element(document.body),
+           controllerAs: 'vm',
+           theme:"custom",
+           targetEvent: ev,
+           clickOutsideToClose:true,
+           fullscreen: false
+         })
+       };
 
     }
 })();
