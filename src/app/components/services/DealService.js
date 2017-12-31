@@ -81,9 +81,7 @@
         }
 
         function handleSuccess(res) {
-            console.log(res.data);
-            var result = Object.assign({}, res.data, {'success': true});
-            return result;
+            return res.data;
         }
 
         function handleError(error) {

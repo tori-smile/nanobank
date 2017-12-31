@@ -219,7 +219,7 @@
         }
         DealService.Pay(payData).then(function(response){
           console.log('success', response.success);
-          if (response.success){
+          if (angular.isUndefined(response.success)){
             vm.deal.returnedAmount = +vm.deal.returnedAmount + +result;
           };
         })
