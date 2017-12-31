@@ -19,7 +19,8 @@
         service.Response = Response;
         service.Delete = Delete;
         service.SetRating = SetRating;
-        service.CloseDeal = CloseDeal;
+        service.Close = Close;
+        service.Complain = Complain;
         return service;
 
         function GetAll() {
@@ -56,8 +57,12 @@
           return $http.put(API_BASE + '/api/deal/' + dealId + '/set/rating', ratingData).then(handleSuccess, handleError('Error setting rating to deal'));
         }
 
-        function CloseDeal(dealId, creditorUsername){
+        function Close(dealId, creditorUsername){
           return $http.put(API_BASE + '/api/deal/close/' + dealId, JSON.stringify(creditorUsername)).then(handleSuccess, handleError('Error closing deal'));
+        }
+
+        function Complain(complainData){
+          return $http.post(API_BASE + '/api/complain', processData(complainData), specialContentType).then(handleSuccess, handleError('Error closing deal'));
         }
         // private functions
 

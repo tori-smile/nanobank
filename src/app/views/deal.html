@@ -47,6 +47,21 @@
                 </div>
             </md-input-container>
         </div>
+
+        <div layout layout-sm="column" ng-if="vm.isAlreadyStarted">
+          <md-input-container >
+              <label ng-if="vm.isCreditor">Вернули</label>
+              <label ng-if="!vm.isCreditor">Отдано</label>
+              <input ng-model="vm.deal.returnedAmount" ng-readonly="vm.isAlreadyStarted" aria-label="jj">
+          </md-input-container>
+          <span flex></span>
+          <md-button ng-if='vm.isCreditor && !vm.deal.isClosed && vm.isOverdue' style="color:#E75753;" ng-disabled="vm.ratingPositive==0 && vm.ratingNegative==0" data-tooltip="hi" ng-click="vm.complainAboutDeal()" class="md-accent" >
+            <md-tooltip md-direction="left" >
+                Пользователь не выплачивает в срок?
+            </md-tooltip>
+            Пожаловаться</md-button>
+        </div>
+
         <div ng-if="vm.isAlreadyStarted" layout layout-sm="column">
           <md-input-container class="md-input-has-value">
             <label>Негативная оценка </label>
