@@ -13,6 +13,7 @@
     service.formatRating = formatRating;
     service.formatDatePeriod = formatDatePeriod;
     service.getConfirmDialog = getConfirmDialog;
+    service.getDialogWithInput = getDialogWithInput;
 
     function formatPhoneNumber(phoneNumber){
       var match = /^(\+?375|80)?(29|25|44|33)(\d{3})(\d{2})(\d{2})$/.exec(phoneNumber);
@@ -69,6 +70,30 @@
             .cancel('Отмена');
 
       return confirm;
+    }
+
+    function getDialogWithInput(title, textContent, placeholder, initialValue, ok){
+      var prompt = $mdDialog.prompt({
+                    onComplete: function afterShowAnimation() {
+                        var $dialog = angular.element(document.querySelector('md-dialog'));
+                        var $actionsSection = $dialog.find('md-dialog-actions');
+                        var $cancelButton = $actionsSection.children()[0];
+                        var $confirmButton = $actionsSection.children()[1];
+                        angular.element($confirmButton).addClass('md-raised md-accent');
+                        angular.element($cancelButton).addClass('md-accent');
+                    }
+      })
+      .title(title)
+      .textContent(textContent)
+      .placeholder(placeholder)
+      .ariaLabel('Dog name')
+      .initialValue(initialValue)
+      .targetEvent(null)
+      .required(true)
+      .ok(ok)
+      .cancel('отмена');
+
+      return prompt;
     }
 
     return service;
