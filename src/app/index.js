@@ -151,7 +151,7 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
         if (restrictedPage && !loggedIn) {
           event.preventDefault();
           $state.transitionTo('login');
-        }else if (!informationExists){
+        }else if (loggedIn && !informationExists){
           UserService.currentUsername = $rootScope.globals.currentUser.username;
         }
     });
