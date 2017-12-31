@@ -44,7 +44,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="data in vm.tableData | filter:vm.search | filter:customFilter track by $index ">
+        <tr ng-repeat="data in vm.tableData | filter:vm.search | filter:customFilter track by $index " ng-click="showAdvanced($event, data.id)">
             <td data-title="ID">{{$index + 1}}</td>
             <td data-title="Заёмщик">{{data.ownerUserName}}</td>
             <td data-title="Кредитор">{{data.creditorUserName}}</td>

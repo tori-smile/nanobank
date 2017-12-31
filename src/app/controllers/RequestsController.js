@@ -28,6 +28,20 @@
       return vm.showUnassigned && !assigned ||
              vm.showAssigned && assigned && ok;
     }
+
+    $scope.showAdvanced = function(ev, data) {
+       $mdDialog.show({
+         locals:{dealId: data},
+         controller: 'DealDialogController',
+         templateUrl: 'app/views/partials/dealDialog.html',
+         parent: angular.element(document.body),
+         controllerAs: 'vm',
+         theme:"custom",
+         targetEvent: ev,
+         clickOutsideToClose:true,
+         fullscreen: false,
+       })
+     };
   }
 
 })();
