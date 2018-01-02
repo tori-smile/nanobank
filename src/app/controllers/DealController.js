@@ -178,7 +178,6 @@
 
     function setRating(negative, positive){
       var ratingData = {
-        'creditorUsername': UserService.currentUsername,
         'positive': positive,
         'negative': negative
       }
