@@ -30,7 +30,7 @@
       {
         name: 'Оформить заявку',
         icon: 'create',
-        sref: '.deal',
+        sref: '.newdeal',
         roles : ['admin', 'user'],
       },
       {

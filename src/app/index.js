@@ -40,6 +40,18 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies',
           title: 'Table'
         }
       })
+      .state('home.newdeal', {
+        url: '/newdeal',
+        controller: 'DealController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/deal.html',
+        data: {
+          title: 'Table'
+        },
+        params:{
+          deal: null,
+        }
+      })
       .state('home.deal', {
         url: '/deal',
         controller: 'DealController',
