@@ -28,7 +28,7 @@
         }
 
         function Create(complain) {
-            return $http.post(API_BASE + '/api/complain', processData(complain), specialContentType).then(handleSuccess, handleError('Error creating complain'));
+            return $http.post(API_BASE + '/api/complain/add', processData(complain), specialContentType).then(handleSuccess, handleError('Error creating complain'));
         }
         function Delete(complainId) {
           // application/x-www-form-urlencoded
