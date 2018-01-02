@@ -18,6 +18,8 @@
 
     vm.user.ratingPositive = helpService.formatRating(vm.user.ratingPositive, true);
     vm.user.ratingNegative = helpService.formatRating(vm.user.ratingNegative, false);
+    vm.user.imageMimeType = helpService.formatImageType(vm.user.imageMimeType);
+    console.log(vm.user);
 
     $scope.hide = function() {
       $mdDialog.hide();
@@ -35,7 +37,7 @@
       var title = forDeletion ? 'Вы действительно хотите удалить аккаунт данного пользователя?':'Вы действительно хотите утвердить аккаунт данного пользователя?'
       var textContent = forDeletion ? 'После подтверждения удаления учётная запись пользователя сотрётся из базы данных.' : 'После подтверждения действия пользователю предоставится доступ к ресурсам приложения.'
       var ok = forDeletion ? 'удалить.' : 'подтвердить.'
-      
+
       $mdDialog.show(helpService.getConfirmDialog(title, textContent, ok)).then(function() {
         makeUserAction(forDeletion).then(function(response){
           $state.reload();

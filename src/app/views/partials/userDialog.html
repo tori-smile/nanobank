@@ -75,6 +75,8 @@
                 </div>
               </div>
 
+              <img ng-if="!vm.user.readonly" data-ng-src="data:{{vm.user.imageMimeType}};base64,{{vm.user.passportImage}}">
+
             </form>
         </div>
       </div>
@@ -89,7 +91,7 @@
       <md-button ng-click="showConfirm($event, true)" ng-if='!vm.user.readonly' class="md-accent">
        Удалить пользователя
       </md-button>
-      <md-button ng-click="showConfirm($event, false)" ng-if='!vm.user.readonly' class="md-raised md-accent" ng-if="!vm.user.isApproved">
+      <md-button ng-click="showConfirm($event, false)" ng-if='!vm.user.readonly && !vm.user.isApproved' class="md-raised md-accent" >
         Подтвердить аккаунт
       </md-button>
     </md-dialog-actions>
