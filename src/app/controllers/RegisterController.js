@@ -19,13 +19,13 @@
         function register() {
             vm.dataLoading = true;
             formatData();
-            vm.user.PassportImage = vm.user.files.base64;
-            vm.user.ImageMimeType = vm.user.files.filetype;
+            vm.user.PassportImage = vm.files.base64;
+            vm.user.ImageMimeType = vm.files.filetype;
             UserService.Create(vm.user)
                 .then(function (response) {
                     if (response.success) {
                         FlashService.Success('Registration successful', true);
-                        $location.path('/login');
+                        $state.go('login');
                     } else {
                         FlashService.Error(response.message);
                         vm.dataLoading = false;

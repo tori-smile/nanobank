@@ -124,7 +124,7 @@
         <div layout layout-sm="column">
           <md-input-container flex>
             <label for="files">Последняя страница паспорта</label>
-            <input type="file" name="files" ng-model="vm.user.files" placeholder="" required base-sixty-four-input>
+            <input type="file" name="files" ng-model="vm.files" placeholder="" required base-sixty-four-input>
             <div class="errors" ng-messages="form.files.$error">
               <div class="md-input-message-animation" ng-message="required" ng-if="form.files.$touched && form.files.$error.required">Фотографи паспорта обязательна.</div>
             </div>
