@@ -78,7 +78,7 @@
       vm.dataLoading = true;
       DealService.Delete(vm.deal.id).then(function(response){
         clearData();
-        $state.go($state.current, {}, {reload: true});
+        $state.go("home.table", {}, {reload: true});
       })
     }
 
