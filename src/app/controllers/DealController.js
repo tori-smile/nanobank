@@ -214,12 +214,14 @@
       .then(function(result) {
         var payData = {
           'DealId': vm.deal.id,
-          'Amount': result,
-          'Username': UserService.currentUsername
+          'Amount': result
         }
         DealService.Pay(payData).then(function(response){
           if (angular.isUndefined(response.success)){
             vm.deal.returnedAmount = +vm.deal.returnedAmount + +result;
+            helpService.showSimpleToast("Оплата принята");
+          } else {
+            helpService.showSimpleToast("Возникла ошибка при переводе денег. Попробуйте снова.");
           };
         })
       }, function() {
