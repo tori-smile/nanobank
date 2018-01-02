@@ -61,8 +61,8 @@
           return $http.put(API_BASE + '/api/deal/' + dealId + '/set/rating', ratingData).then(handleSuccess, handleError('Error setting rating to deal'));
         }
 
-        function Close(dealId, creditorUsername){
-          return $http.put(API_BASE + '/api/deal/close/' + dealId, JSON.stringify(creditorUsername)).then(handleSuccess, handleError('Error closing deal'));
+        function Close(dealId){
+          return $http.put(API_BASE + '/api/deal/close/' + dealId).then(handleSuccess, handleError('Error closing deal'));
         }
 
         function Pay(payData){

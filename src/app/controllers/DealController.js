@@ -91,7 +91,10 @@
       var textContent = 'После подтверждения действия заёмщик не сможет Вам больше перевести деньги.';
       var ok = 'закрыть'
       $mdDialog.show(helpService.getConfirmDialog(title, textContent, ok)).then(function() {
-        DealService.Close(vm.deal.id, UserService.currentUsername).then(function(response){
+        vm.dataLoading = true;
+        DealService.Close(vm.deal.id).then(function(response){
+          vm.dataLoading = false;
+          helpService.showSimpleToast("Сделка успешно закрыта.")
           $rootScope.$stateParams.deal.isClosed = true;
           $state.go($state.current, {}, {reload: true});
         })
@@ -216,6 +219,7 @@
           'DealId': vm.deal.id,
           'Amount': result
         }
+        vm.dataLoading = true;
         DealService.Pay(payData).then(function(response){
           if (angular.isUndefined(response.success)){
             vm.deal.returnedAmount = +vm.deal.returnedAmount + +result;
@@ -223,6 +227,7 @@
           } else {
             helpService.showSimpleToast("Возникла ошибка при переводе денег. Попробуйте снова.");
           };
+          vm.dataLoading = false;
         })
       }, function() {
 
