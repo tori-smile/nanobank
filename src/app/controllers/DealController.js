@@ -2,11 +2,11 @@
 
   angular
     .module('app')
-    .controller('DealController', ['$rootScope', '$state', '$stateParams', 'DealService', 'UserService', 'helpService','$q', '$mdDialog',
+    .controller('DealController', ['$rootScope', '$state', '$stateParams', 'DealService', 'UserService', 'helpService', 'ComplainService','$q', '$mdDialog',
       DealController
     ]);
 
-  function DealController($rootScope, $state, $stateParams, DealService, UserService, helpService, $q, $mdDialog) {
+  function DealController($rootScope, $state, $stateParams, DealService, UserService, helpService, ComplainService, $q, $mdDialog) {
     var vm = this;
     vm.deal = $rootScope.$stateParams.deal;
     vm.newDeal = true;
@@ -193,10 +193,10 @@
       $mdDialog.show(helpService.getDialogWithInput(title, textContent, placeholder, initialValue, ok)).then(function(result) {
         var complainData = {
           'DealId': vm.deal.id,
-          'ComplainText': result,
-          'Username': UserService.currentUsername
+          'ComplainText': result
         }
-        DealService.Complain(complainData).then(function(result){
+        ComplainService.Create(complainData).then(function(result){
+          helpService.showSimpleToast("Ваша жалоба принята. Мы рассмотрим её в ближайшее время.");
         })
       }, function() {
 
