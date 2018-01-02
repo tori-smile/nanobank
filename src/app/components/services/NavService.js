@@ -40,8 +40,8 @@
         roles : ['admin'],
       },
       {
-        name: 'Запросы',
-        icon: 'supervisor_account',
+        name: 'Сделки',
+        icon: 'shopping_cart',
         sref: '.requests',
         roles : ['admin'],
       },
