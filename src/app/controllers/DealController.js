@@ -52,9 +52,9 @@
     }
 
     function createDeal(){
-      vm.deal.ownerUserName = UserService.currentUsername
       vm.dataLoading = true;
       DealService.Create(vm.deal).then(function(result){
+        helpService.showSimpleToast("Заявка на сделку создана.")
         vm.dataLoading = false;
         $state.go("home.table");
       });
