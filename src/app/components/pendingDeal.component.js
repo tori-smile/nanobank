@@ -42,8 +42,7 @@
             vm.dataLoading=true;
             return DealService.Delete(vm.deal.id);
           }else {
-            console.log(vm.deal.id, UserService.currentUsername);
-            return DealService.Response(vm.deal.id, UserService.currentUsername);
+            return DealService.Response(vm.deal.id);
           }
         }
       };

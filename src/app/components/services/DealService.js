@@ -48,9 +48,8 @@
           return $http.put(API_BASE + '/api/deal/' + deal.id, deal).then(handleSuccess, handleError('Error updating deal'));
         }
 
-        function Response(dealId, username) {
-          console.log(username);
-            return $http.put(API_BASE + '/api/deal/respond/' + dealId, JSON.stringify(username)).then(handleSuccess, handleError('Error resposing deal'));
+        function Response(dealId) {
+          return $http.put(API_BASE + '/api/deal/respond/' + dealId).then(handleSuccess, handleError('Error resposing deal'));
         }
 
         function Delete(dealid) {
