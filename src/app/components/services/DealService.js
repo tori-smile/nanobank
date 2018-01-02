@@ -21,7 +21,6 @@
         service.Delete = Delete;
         service.SetRating = SetRating;
         service.Close = Close;
-        service.Complain = Complain;
         service.Pay = Pay;
         return service;
 
@@ -65,10 +64,6 @@
 
         function Close(dealId, creditorUsername){
           return $http.put(API_BASE + '/api/deal/close/' + dealId, JSON.stringify(creditorUsername)).then(handleSuccess, handleError('Error closing deal'));
-        }
-
-        function Complain(complainData){
-          return $http.post(API_BASE + '/api/complain', processData(complainData), specialContentType).then(handleSuccess, handleError('Error closing deal'));
         }
 
         function Pay(payData){
