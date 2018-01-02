@@ -2,11 +2,11 @@
   'use strict';
 
   angular.module('app')
-          .service('helpService', ['$mdDialog',
+          .service('helpService', ['$mdDialog', '$mdToast',
           helpService
   ]);
 
-  function helpService($mdDialog){
+  function helpService($mdDialog, $mdToast){
     var service = {};
 
     service.formatPhoneNumber = formatPhoneNumber;
@@ -15,6 +15,7 @@
     service.getConfirmDialog = getConfirmDialog;
     service.getDialogWithInput = getDialogWithInput;
     service.formatImageType = formatImageType;
+    service.showSimpleToast = showSimpleToast;
 
     function formatPhoneNumber(phoneNumber){
       var match = /^(\+?375|80)?(29|25|44|33)(\d{3})(\d{2})(\d{2})$/.exec(phoneNumber);
@@ -100,6 +101,15 @@
     function formatImageType(type){
       var match = /^(image\/)?(\w+)$/.exec(type);
       return "image/"+match[2];
+    }
+
+    function showSimpleToast(title) {
+      $mdToast.show(
+        $mdToast.simple()
+          .content(title)
+          .hideDelay(2000)
+          .position('bottom right')
+      );
     }
 
     return service;
