@@ -5,11 +5,22 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$state', 'AuthenticationService', 'FlashService', 'UserService'];
-    function LoginController($state, AuthenticationService, FlashService, UserService) {
+    LoginController.$inject = ['$state', '$scope','AuthenticationService', 'FlashService', 'UserService'];
+    function LoginController($state, $scope, AuthenticationService, FlashService, UserService) {
         var vm = this;
+        vm.wrongData = false;
+        vm.username = '';
+        vm.password = '';
 
         vm.login = login;
+
+        $scope.$watch('vm.username', function(newValue){
+          vm.wrongData = false;
+        });
+
+        $scope.$watch('vm.password', function(newValue){
+          vm.wrongData = false;
+        });
 
         (function initController() {
             // reset login status
@@ -25,6 +36,7 @@
                 } else {
                     FlashService.Error(response.message);
                     vm.dataLoading = false;
+                    vm.wrongData = true;
                 }
             });
         };
