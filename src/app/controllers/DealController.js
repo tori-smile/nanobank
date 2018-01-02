@@ -53,7 +53,11 @@
 
     function createDeal(){
       vm.deal.ownerUserName = UserService.currentUsername
-      DealService.Create(vm.deal);
+      vm.dataLoading = true;
+      DealService.Create(vm.deal).then(function(result){
+        vm.dataLoading = false;
+        $state.go("home.table");
+      });
     }
 
     function updateDeal(){
