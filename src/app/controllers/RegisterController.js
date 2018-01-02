@@ -18,8 +18,9 @@
 
         function register() {
             vm.dataLoading = true;
-            console.log(vm);
             formatData();
+            vm.user.PassportImage = vm.user.files.base64;
+            vm.user.ImageMimeType = vm.user.files.filetype;
             UserService.Create(vm.user)
                 .then(function (response) {
                     if (response.success) {
