@@ -14,6 +14,7 @@
     service.formatDatePeriod = formatDatePeriod;
     service.getConfirmDialog = getConfirmDialog;
     service.getDialogWithInput = getDialogWithInput;
+    service.formatImageType = formatImageType;
 
     function formatPhoneNumber(phoneNumber){
       var match = /^(\+?375|80)?(29|25|44|33)(\d{3})(\d{2})(\d{2})$/.exec(phoneNumber);
@@ -94,6 +95,11 @@
       .cancel('отмена');
 
       return prompt;
+    }
+
+    function formatImageType(type){
+      var match = /^(image\/)?(\w+)$/.exec(type);
+      return "image/"+match[2];
     }
 
     return service;
