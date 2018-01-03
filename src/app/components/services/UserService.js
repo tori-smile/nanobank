@@ -22,6 +22,7 @@
         service.currentUser = {};
         service.setCurrentUserAndGoToState = setCurrentUserAndGoToState;
         service.setCurrentUser = setCurrentUser;
+        service.GetPassportPhoto = GetPassportPhoto;
 
         return service;
 
@@ -59,6 +60,10 @@
             'password': password
           }
           return $http.post(API_BASE + '/api/token', processData(loginInfo), specialContentType).then(handleSuccess, handleError('Error logging in user'));
+        }
+
+        function GetPassportPhoto(username){
+          return $http.get(API_BASE + '/api/user/' + username + '/passport/photo').then(handleSuccess, handleError('Error getting passport photo'));
         }
 
         function setCurrentUserAndGoToState(username, toState){
