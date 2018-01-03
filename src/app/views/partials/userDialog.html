@@ -75,7 +75,7 @@
                 </div>
               </div>
 
-              <img ng-if="!vm.user.readonly" data-ng-src="data:{{vm.user.imageMimeType}};base64,{{vm.user.passportImage}}">
+              <img ng-if="!vm.user.readonly" ng-src="{{imagePath}}" style="max-width: 640px">
 
             </form>
         </div>

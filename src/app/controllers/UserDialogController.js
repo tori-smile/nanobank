@@ -16,10 +16,15 @@
       };
     });
 
+    UserService.GetPassportPhoto(vm.user.userName).then(function(image){
+      var imageMimeType = helpService.formatImageType(image.imageMimeType);
+      var passportPhoto = image.passportImage;
+      $scope.imagePath = "data:"+ imageMimeType + ";base64,"+ passportPhoto;
+    });
+
+
     vm.user.ratingPositive = helpService.formatRating(vm.user.ratingPositive, true);
     vm.user.ratingNegative = helpService.formatRating(vm.user.ratingNegative, false);
-    vm.user.imageMimeType = helpService.formatImageType(vm.user.imageMimeType);
-    console.log(vm.user);
 
     $scope.hide = function() {
       $mdDialog.hide();
