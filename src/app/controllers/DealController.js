@@ -44,7 +44,7 @@
     }
 
     function defineIsOverdue(){
-      vm.amountToReturn = vm.deal.startAmount * (1 + vm.deal.percentRate/100.0);
+      vm.amountToReturn = vm.deal.startAmount * (1 + vm.deal.percentRate/100.0* (+vm.deal.dealDurationInMonth));
       vm.amountToReturnPerMonth = vm.amountToReturn / vm.deal.dealDurationInMonth;
       vm.monthesPassed = Math.trunc(Math.abs(moment().diff(moment(vm.deal.startDealState), 'months', true)));
       vm.amountMustBeAlreadyReturned = vm.amountToReturnPerMonth * vm.monthesPassed;
