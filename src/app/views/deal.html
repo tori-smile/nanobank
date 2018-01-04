@@ -20,7 +20,7 @@
         </div>
         <div layout layout-sm="column">
             <md-input-container flex>
-                <label>Cумма</label>
+                <label>Начальная сумма</label>
                 <input type="number" name="startAmount" min="1" ng-model="vm.deal.startAmount" ng-readonly="vm.isAlreadyStarted" ng-change="vm.change()" required>
                 <div class="hint" ng-if="vm.newDeal && !(userForm.startAmount.$touched && userForm.startAmount.$error.required || userForm.startAmount.$error.min)">какая сумма тебе необходима в BYN</div>
                 <div class="errors" ng-messages="userForm.startAmount.$error">
